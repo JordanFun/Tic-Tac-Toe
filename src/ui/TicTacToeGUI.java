@@ -9,6 +9,8 @@ public class TicTacToeGUI {
     private static int FRAME_HEIGHT = 900;
     private JFrame frame;
     private JPanel backgroundColor;
+    private static int LINE_WIDTH = 10;
+    private static int LINE_HEIGHT = FRAME_WIDTH / 2;
 
     public TicTacToeGUI() {
         frame = new JFrame();
@@ -36,8 +38,18 @@ public class TicTacToeGUI {
     }
 
     private void createLines() {
+        createTopHorizontalLine();
+        createBottomHorizontalLine();
+        createLeftVerticalLine();
+        createrightVerticalLine();
+    }
+
+
+
+    private void createTopHorizontalLine() {
         JPanel topHorizontalLine = new JPanel();
-        topHorizontalLine.setBounds(FRAME_WIDTH / 2, FRAME_HEIGHT / 2, 100, 100);
+        topHorizontalLine.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2), (FRAME_HEIGHT / 3) + (LINE_WIDTH / 2),
+                LINE_HEIGHT, LINE_WIDTH);
         topHorizontalLine.setLayout(new BorderLayout());
         topHorizontalLine.setBackground(Color.white);
 
@@ -45,8 +57,41 @@ public class TicTacToeGUI {
         topHorizontalLine.setVisible(true);
     }
 
+    private void createBottomHorizontalLine() {
+        JPanel bottomHorizontalLine = new JPanel();
+        bottomHorizontalLine.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2), (2 * FRAME_HEIGHT / 3) - (LINE_WIDTH / 2),
+                LINE_HEIGHT, LINE_WIDTH);
+        bottomHorizontalLine.setLayout(new BorderLayout());
+        bottomHorizontalLine.setBackground(Color.white);
+
+        backgroundColor.add(bottomHorizontalLine);
+        bottomHorizontalLine.setVisible(true);
+    }
+
+    private void createLeftVerticalLine() {
+        JPanel leftVerticalLine = new JPanel();
+        leftVerticalLine.setBounds((FRAME_WIDTH / 2) - ((LINE_HEIGHT / 6) + LINE_WIDTH), ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2),
+                LINE_WIDTH, LINE_HEIGHT);
+        leftVerticalLine.setLayout(new BorderLayout());
+        leftVerticalLine.setBackground(Color.white);
+
+        backgroundColor.add(leftVerticalLine);
+        leftVerticalLine.setVisible(true);
+    }
+
+    private void createrightVerticalLine() {
+        JPanel rightVerticalLine = new JPanel();
+        rightVerticalLine.setBounds((FRAME_WIDTH / 2) + ((LINE_HEIGHT / 6) + LINE_WIDTH), ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2),
+                LINE_WIDTH, LINE_HEIGHT);
+        rightVerticalLine.setLayout(new BorderLayout());
+        rightVerticalLine.setBackground(Color.white);
+
+        backgroundColor.add(rightVerticalLine);
+        rightVerticalLine.setVisible(true);
+    }
+
     private void setTiles() {
-        
+
     }
 
 
