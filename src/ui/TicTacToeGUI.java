@@ -2,6 +2,8 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class TicTacToeGUI {
 
@@ -41,7 +43,7 @@ public class TicTacToeGUI {
         createTopHorizontalLine();
         createBottomHorizontalLine();
         createLeftVerticalLine();
-        createrightVerticalLine();
+        createRightVerticalLine();
     }
 
 
@@ -79,7 +81,7 @@ public class TicTacToeGUI {
         leftVerticalLine.setVisible(true);
     }
 
-    private void createrightVerticalLine() {
+    private void createRightVerticalLine() {
         JPanel rightVerticalLine = new JPanel();
         rightVerticalLine.setBounds((FRAME_WIDTH / 2) + ((LINE_HEIGHT / 6) + LINE_WIDTH), ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2),
                 LINE_WIDTH, LINE_HEIGHT);
@@ -90,8 +92,50 @@ public class TicTacToeGUI {
         rightVerticalLine.setVisible(true);
     }
 
-    private void setTiles() {
 
+    private void setTiles() {
+        setTopLeftTile();
+    }
+
+    private void setTopLeftTile() {
+        JPanel topLeftTile = new JPanel();
+        topLeftTile.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2),
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2),
+                (LINE_HEIGHT / 3) - (LINE_WIDTH / 2),
+                (LINE_HEIGHT / 3) - (LINE_WIDTH / 2));
+
+        topLeftTile.setLayout(new BorderLayout());
+        topLeftTile.setBackground(Color.black);
+
+        topLeftTile.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                topLeftTile.setBackground(Color.red);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        backgroundColor.add(topLeftTile);
+        topLeftTile.setVisible(true);
     }
 
 
