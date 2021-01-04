@@ -7,10 +7,12 @@ public class Tile {
         EMPTY, X, O
     }
 
+    // EFFECTS: A tile on the Tic-Tac-Toe board with empty, X, or O state
     public Tile() {
         this.state = State.EMPTY;
     }
 
+    // EFFECTS: Sets the state of the tile
     public void setState(State state) {
         if (state == State.EMPTY) {
             this.state = State.EMPTY;
@@ -21,6 +23,7 @@ public class Tile {
         }
     }
 
+    // EFFECTS: Returns current state of the tile
     public State getState() {
         return this.state;
     }
