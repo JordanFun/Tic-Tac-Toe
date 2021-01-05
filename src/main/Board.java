@@ -18,6 +18,11 @@ public class Board {
         }
     }
 
+    // EFFECTS: returns whether it's X's turn
+    public Boolean getXTurn() {
+        return XTurn;
+    }
+
     // EFFECTS: returns tile at (column, row)
     public Tile getTile(int column, int row) {
         return board[column][row];
@@ -30,6 +35,7 @@ public class Board {
 
     // MODIFIES: this
     // EFFECTS: Marks a tile with X or O depending on who's turn it is, then switches turns
+    //          returns boolean on game state (whether or not it's over)
     public Boolean markTile(int column, int row) {
         if ((row <= 2 && row >= 0 && column <= 2 && column >= 0) || !gameIsOver) {
             Tile currTile = getTile(column, row);
@@ -109,7 +115,7 @@ public class Board {
         }
         return downwards || upwards;
     }
-    
+
     // EFFECTS: Checks if the downwards ( \ ) diagonal is a win
     public Boolean checkDownwardsDiagonal() {
         Tile tile1 = getTile(0, 0);
