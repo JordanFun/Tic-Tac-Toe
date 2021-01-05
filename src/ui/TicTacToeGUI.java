@@ -5,10 +5,12 @@ import main.Tile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class TicTacToeGUI {
+public class TicTacToeGUI implements ActionListener {
 
     private Board board;
 
@@ -16,9 +18,12 @@ public class TicTacToeGUI {
     private static int FRAME_HEIGHT = 900;
     private JFrame frame;
     private JPanel backgroundColor;
+    private JLabel winText;
+    private JButton playAgain;
     private static int LINE_WIDTH = 10;
     private static int LINE_HEIGHT = FRAME_WIDTH / 2;
     private static int TILE_WIDTH = ((LINE_HEIGHT) - (2 * LINE_WIDTH)) / 3;
+
 
     public TicTacToeGUI() {
         board = new Board();
@@ -42,6 +47,26 @@ public class TicTacToeGUI {
         backgroundColor.setBackground(Color.darkGray);
         backgroundColor.setVisible(true);
         frame.add(backgroundColor);
+
+        winText = new JLabel("", JLabel.CENTER);
+        winText.setBounds((FRAME_WIDTH / 2) - (TILE_WIDTH / 2),
+                (FRAME_HEIGHT / 2) - (3 * TILE_WIDTH / 4),
+                TILE_WIDTH,
+                TILE_WIDTH);
+        winText.setForeground(Color.white);
+        winText.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+        winText.setVisible(true);
+        backgroundColor.add(winText);
+
+        playAgain = new JButton();
+        playAgain.addActionListener(this);
+        playAgain.setText("Play again");
+        playAgain.setBounds((FRAME_WIDTH / 2) - 50,
+                (FRAME_HEIGHT / 2),
+                100,
+                50);
+        playAgain.setVisible(false);
+        backgroundColor.add(playAgain);
 
         createLines();
         setTiles();
@@ -139,7 +164,12 @@ public class TicTacToeGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!board.getGameIsOver()) {
-                    board.markTile(0,0);
+                    if (board.markTile(0,0)) {
+                        endGame();
+                    } else if (board.isBoardFull()) {
+                        winText.setText("Draw!");
+                        playAgain.setVisible(true);
+                    }
                     if (board.getTile(0, 0).getState() == Tile.State.X) {
                         topLeftTile.setBackground(Color.blue);
                     } else if (board.getTile(0, 0).getState() == Tile.State.O) {
@@ -183,7 +213,12 @@ public class TicTacToeGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!board.getGameIsOver()) {
-                    board.markTile(0,1);
+                    if (board.markTile(0,1)) {
+                        endGame();
+                    } else if (board.isBoardFull()) {
+                        winText.setText("Draw!");
+                        playAgain.setVisible(true);
+                    }
                     if (board.getTile(0, 1).getState() == Tile.State.X) {
                         middleLeftTile.setBackground(Color.blue);
                     } else if (board.getTile(0, 1).getState() == Tile.State.O) {
@@ -229,7 +264,12 @@ public class TicTacToeGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!board.getGameIsOver()) {
-                    board.markTile(0,2);
+                    if (board.markTile(0,2)) {
+                        endGame();
+                    } else if (board.isBoardFull()) {
+                        winText.setText("Draw!");
+                        playAgain.setVisible(true);
+                    }
                     if (board.getTile(0, 2).getState() == Tile.State.X) {
                         bottomLeftTile.setBackground(Color.blue);
                     } else if (board.getTile(0, 2).getState() == Tile.State.O) {
@@ -272,7 +312,12 @@ public class TicTacToeGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!board.getGameIsOver()) {
-                    board.markTile(1,0);
+                    if (board.markTile(1,0)) {
+                        endGame();
+                    } else if (board.isBoardFull()) {
+                        winText.setText("Draw!");
+                        playAgain.setVisible(true);
+                    }
                     if (board.getTile(1, 0).getState() == Tile.State.X) {
                         topMiddleTile.setBackground(Color.blue);
                     } else if (board.getTile(1, 0).getState() == Tile.State.O) {
@@ -316,7 +361,12 @@ public class TicTacToeGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!board.getGameIsOver()) {
-                    board.markTile(1,1);
+                    if (board.markTile(1,1)) {
+                        endGame();
+                    } else if (board.isBoardFull()) {
+                        winText.setText("Draw!");
+                        playAgain.setVisible(true);
+                    }
                     if (board.getTile(1, 1).getState() == Tile.State.X) {
                         centerTile.setBackground(Color.blue);
                     } else if (board.getTile(1, 1).getState() == Tile.State.O) {
@@ -359,7 +409,12 @@ public class TicTacToeGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!board.getGameIsOver()) {
-                    board.markTile(1,2);
+                    if (board.markTile(1,2)) {
+                        endGame();
+                    } else if (board.isBoardFull()) {
+                        winText.setText("Draw!");
+                        playAgain.setVisible(true);
+                    }
                     if (board.getTile(1, 2).getState() == Tile.State.X) {
                         bottomMiddleTile.setBackground(Color.blue);
                     } else if (board.getTile(1, 2).getState() == Tile.State.O) {
@@ -402,7 +457,12 @@ public class TicTacToeGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!board.getGameIsOver()) {
-                    board.markTile(2,0);
+                    if (board.markTile(2,0)) {
+                        endGame();
+                    } else if (board.isBoardFull()) {
+                        winText.setText("Draw!");
+                        playAgain.setVisible(true);
+                    }
                     if (board.getTile(2, 0).getState() == Tile.State.X) {
                         topRightTile.setBackground(Color.blue);
                     } else if (board.getTile(2, 0).getState() == Tile.State.O) {
@@ -446,7 +506,12 @@ public class TicTacToeGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!board.getGameIsOver()) {
-                    board.markTile(2,1);
+                    if (board.markTile(2,1)) {
+                        endGame();
+                    } else if (board.isBoardFull()) {
+                        winText.setText("Draw!");
+                        playAgain.setVisible(true);
+                    }
                     if (board.getTile(2, 1).getState() == Tile.State.X) {
                         middleRightTile.setBackground(Color.blue);
                     } else if (board.getTile(2, 1).getState() == Tile.State.O) {
@@ -490,7 +555,12 @@ public class TicTacToeGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!board.getGameIsOver()) {
-                    board.markTile(2,2);
+                    if (board.markTile(2,2)) {
+                        endGame();
+                    } else if (board.isBoardFull()) {
+                        winText.setText("Draw!");
+                        playAgain.setVisible(true);
+                    }
                     if (board.getTile(2, 2).getState() == Tile.State.X) {
                         bottomRightTile.setBackground(Color.blue);
                     } else if (board.getTile(2, 2).getState() == Tile.State.O) {
@@ -518,5 +588,21 @@ public class TicTacToeGUI {
 
         backgroundColor.add(bottomRightTile);
         bottomRightTile.setVisible(true);
+    }
+
+    private void endGame() {
+        if (board.getXTurn()) {
+            winText.setText("O wins!");
+        } else {
+            winText.setText("X wins!");
+        }
+        playAgain.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == playAgain) {
+            new TicTacToeGUI();
+        }
     }
 }

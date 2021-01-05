@@ -4,18 +4,37 @@ public class Board {
     Tile[][] board;
     Boolean XTurn;
     Boolean gameIsOver;
+    int tilesMarked;
 
     // EFFECTS: A 3x3 board of tiles representing a Tic-Tac-Toe board
     public Board() {
         board = new Tile[3][3];
         XTurn = true;
         gameIsOver = false;
+        tilesMarked = 0;
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 board[i][j] = new Tile();
             }
         }
+    }
+
+    // EFFECTS: Makes all tiles on board an EMPTY state
+    // sets game is over to false, tilesMarked = 0, and starts on X's turn
+    public void clearBoard() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                board[i][j].setState(Tile.State.EMPTY);
+            }
+        }
+        gameIsOver = false;
+        XTurn = true;
+        tilesMarked = 0;
+    }
+
+    public boolean isBoardFull() {
+        return tilesMarked == 9;
     }
 
     // EFFECTS: returns whether it's X's turn
@@ -45,6 +64,7 @@ public class Board {
                 } else {
                     currTile.setState(Tile.State.O);
                 }
+                tilesMarked++;
                 XTurn = !XTurn;
             }
             gameIsOver = checkWin(column, row);
