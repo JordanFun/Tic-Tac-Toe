@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+// TicTacToe GUI representing a Tic-Tac-Toe board
 public class TicTacToeGUI implements ActionListener {
 
     private Board board;
@@ -24,7 +25,8 @@ public class TicTacToeGUI implements ActionListener {
     private static int LINE_HEIGHT = FRAME_WIDTH / 2;
     private static int TILE_WIDTH = ((LINE_HEIGHT) - (2 * LINE_WIDTH)) / 3;
 
-
+    // MODIFIES: this
+    // EFFECTS: Starts up the GUI JFrame and the elements inside of it
     public TicTacToeGUI() {
         board = new Board();
 
@@ -41,6 +43,8 @@ public class TicTacToeGUI implements ActionListener {
         frame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Sets up the lines of the board and the tiles ready to be marked
     private void setUpBoard() {
         backgroundColor = new JPanel();
         backgroundColor.setLayout(null);
@@ -72,6 +76,7 @@ public class TicTacToeGUI implements ActionListener {
         setTiles();
     }
 
+    // EFFECTS: Creates the lines on the Tic-Tac-Toe board
     private void createLines() {
         createTopHorizontalLine();
         createBottomHorizontalLine();
@@ -79,8 +84,8 @@ public class TicTacToeGUI implements ActionListener {
         createRightVerticalLine();
     }
 
-
-
+    // MODIFIES: this
+    // EFFECTS: Creates a JPanel line that is TILE_WIDTH apart from the line parallel to it
     private void createTopHorizontalLine() {
         JPanel topHorizontalLine = new JPanel();
         topHorizontalLine.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2),
@@ -133,7 +138,8 @@ public class TicTacToeGUI implements ActionListener {
         rightVerticalLine.setVisible(true);
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: Sets the 9 tiles on the 3x3 grid on the Tic-Tac-Toe board
     private void setTiles() {
         setTopLeftTile();
         setMiddleLeftTile();
@@ -149,6 +155,9 @@ public class TicTacToeGUI implements ActionListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: Creates a new panel that gets added onto the frame, when clicked the label shows either X or O
+    // depending on which turn the board was on
     private void setTopLeftTile() {
         JPanel topLeftTile = new JPanel();
 
@@ -159,6 +168,15 @@ public class TicTacToeGUI implements ActionListener {
 
         topLeftTile.setLayout(new BorderLayout());
         topLeftTile.setBackground(Color.darkGray);
+
+        JLabel state = new JLabel("", JLabel.CENTER);
+        state.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2),
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2),
+                TILE_WIDTH,
+                TILE_WIDTH);
+        state.setFont(new Font("Comic Sans", Font.PLAIN, 250));
+        topLeftTile.add(state);
+        state.setVisible(true);
 
         topLeftTile.addMouseListener(new MouseListener() {
             @Override
@@ -171,9 +189,11 @@ public class TicTacToeGUI implements ActionListener {
                         playAgain.setVisible(true);
                     }
                     if (board.getTile(0, 0).getState() == Tile.State.X) {
-                        topLeftTile.setBackground(Color.blue);
+                        state.setForeground(Color.blue);
+                        state.setText("X");
                     } else if (board.getTile(0, 0).getState() == Tile.State.O) {
-                        topLeftTile.setBackground(Color.red);
+                        state.setForeground(Color.red);
+                        state.setText("O");
                     }
                 }
             }
@@ -209,6 +229,15 @@ public class TicTacToeGUI implements ActionListener {
         middleLeftTile.setLayout(new BorderLayout());
         middleLeftTile.setBackground(Color.darkGray);
 
+        JLabel state = new JLabel("", JLabel.CENTER);
+        state.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2),
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2) + TILE_WIDTH + LINE_WIDTH,
+                TILE_WIDTH,
+                TILE_WIDTH);
+        state.setFont(new Font("Comic Sans", Font.PLAIN, 250));
+        middleLeftTile.add(state);
+        state.setVisible(true);
+
         middleLeftTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -220,9 +249,11 @@ public class TicTacToeGUI implements ActionListener {
                         playAgain.setVisible(true);
                     }
                     if (board.getTile(0, 1).getState() == Tile.State.X) {
-                        middleLeftTile.setBackground(Color.blue);
+                        state.setForeground(Color.blue);
+                        state.setText("X");
                     } else if (board.getTile(0, 1).getState() == Tile.State.O) {
-                        middleLeftTile.setBackground(Color.red);
+                        state.setForeground(Color.red);
+                        state.setText("O");
                     }
                 }
             }
@@ -260,6 +291,15 @@ public class TicTacToeGUI implements ActionListener {
         bottomLeftTile.setLayout(new BorderLayout());
         bottomLeftTile.setBackground(Color.darkGray);
 
+        JLabel state = new JLabel("", JLabel.CENTER);
+        state.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2),
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2) + (2 * TILE_WIDTH) + (2 * LINE_WIDTH),
+                TILE_WIDTH,
+                TILE_WIDTH);
+        state.setFont(new Font("Comic Sans", Font.PLAIN, 250));
+        bottomLeftTile.add(state);
+        state.setVisible(true);
+
         bottomLeftTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -271,9 +311,11 @@ public class TicTacToeGUI implements ActionListener {
                         playAgain.setVisible(true);
                     }
                     if (board.getTile(0, 2).getState() == Tile.State.X) {
-                        bottomLeftTile.setBackground(Color.blue);
+                        state.setForeground(Color.blue);
+                        state.setText("X");
                     } else if (board.getTile(0, 2).getState() == Tile.State.O) {
-                        bottomLeftTile.setBackground(Color.red);
+                        state.setForeground(Color.red);
+                        state.setText("O");
                     }
                 }
             }
@@ -308,6 +350,15 @@ public class TicTacToeGUI implements ActionListener {
         topMiddleTile.setLayout(new BorderLayout());
         topMiddleTile.setBackground(Color.darkGray);
 
+        JLabel state = new JLabel("", JLabel.CENTER);
+        state.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2) + TILE_WIDTH + LINE_WIDTH,
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2),
+                TILE_WIDTH,
+                TILE_WIDTH);
+        state.setFont(new Font("Comic Sans", Font.PLAIN, 250));
+        topMiddleTile.add(state);
+        state.setVisible(true);
+
         topMiddleTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -319,9 +370,11 @@ public class TicTacToeGUI implements ActionListener {
                         playAgain.setVisible(true);
                     }
                     if (board.getTile(1, 0).getState() == Tile.State.X) {
-                        topMiddleTile.setBackground(Color.blue);
+                        state.setForeground(Color.blue);
+                        state.setText("X");
                     } else if (board.getTile(1, 0).getState() == Tile.State.O) {
-                        topMiddleTile.setBackground(Color.red);
+                        state.setForeground(Color.red);
+                        state.setText("O");
                     }
                 }
             }
@@ -357,6 +410,15 @@ public class TicTacToeGUI implements ActionListener {
         centerTile.setLayout(new BorderLayout());
         centerTile.setBackground(Color.darkGray);
 
+        JLabel state = new JLabel("", JLabel.CENTER);
+        state.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2) + TILE_WIDTH + LINE_WIDTH,
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2) + TILE_WIDTH + LINE_WIDTH,
+                TILE_WIDTH,
+                TILE_WIDTH);
+        state.setFont(new Font("Comic Sans", Font.PLAIN, 250));
+        centerTile.add(state);
+        state.setVisible(true);
+
         centerTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -368,9 +430,11 @@ public class TicTacToeGUI implements ActionListener {
                         playAgain.setVisible(true);
                     }
                     if (board.getTile(1, 1).getState() == Tile.State.X) {
-                        centerTile.setBackground(Color.blue);
+                        state.setForeground(Color.blue);
+                        state.setText("X");
                     } else if (board.getTile(1, 1).getState() == Tile.State.O) {
-                        centerTile.setBackground(Color.red);
+                        state.setForeground(Color.red);
+                        state.setText("O");
                     }
                 }
             }
@@ -405,6 +469,15 @@ public class TicTacToeGUI implements ActionListener {
         bottomMiddleTile.setLayout(new BorderLayout());
         bottomMiddleTile.setBackground(Color.darkGray);
 
+        JLabel state = new JLabel("", JLabel.CENTER);
+        state.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2) + TILE_WIDTH + LINE_WIDTH,
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2) + (2 * TILE_WIDTH) + (2 * LINE_WIDTH),
+                TILE_WIDTH,
+                TILE_WIDTH);
+        state.setFont(new Font("Comic Sans", Font.PLAIN, 250));
+        bottomMiddleTile.add(state);
+        state.setVisible(true);
+
         bottomMiddleTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -416,9 +489,11 @@ public class TicTacToeGUI implements ActionListener {
                         playAgain.setVisible(true);
                     }
                     if (board.getTile(1, 2).getState() == Tile.State.X) {
-                        bottomMiddleTile.setBackground(Color.blue);
+                        state.setForeground(Color.blue);
+                        state.setText("X");
                     } else if (board.getTile(1, 2).getState() == Tile.State.O) {
-                        bottomMiddleTile.setBackground(Color.red);
+                        state.setForeground(Color.red);
+                        state.setText("O");
                     }
                 }
             }
@@ -453,6 +528,15 @@ public class TicTacToeGUI implements ActionListener {
         topRightTile.setLayout(new BorderLayout());
         topRightTile.setBackground(Color.darkGray);
 
+        JLabel state = new JLabel("", JLabel.CENTER);
+        state.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2) + (2 * TILE_WIDTH) + (2 * LINE_WIDTH),
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2),
+                TILE_WIDTH,
+                TILE_WIDTH);
+        state.setFont(new Font("Comic Sans", Font.PLAIN, 250));
+        topRightTile.add(state);
+        state.setVisible(true);
+
         topRightTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -464,9 +548,11 @@ public class TicTacToeGUI implements ActionListener {
                         playAgain.setVisible(true);
                     }
                     if (board.getTile(2, 0).getState() == Tile.State.X) {
-                        topRightTile.setBackground(Color.blue);
+                        state.setForeground(Color.blue);
+                        state.setText("X");
                     } else if (board.getTile(2, 0).getState() == Tile.State.O) {
-                        topRightTile.setBackground(Color.red);
+                        state.setForeground(Color.red);
+                        state.setText("O");
                     }
                 }
             }
@@ -502,6 +588,15 @@ public class TicTacToeGUI implements ActionListener {
         middleRightTile.setLayout(new BorderLayout());
         middleRightTile.setBackground(Color.darkGray);
 
+        JLabel state = new JLabel("", JLabel.CENTER);
+        state.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2) + (2 * TILE_WIDTH) + (2 * LINE_WIDTH),
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2) + TILE_WIDTH + LINE_WIDTH,
+                TILE_WIDTH,
+                TILE_WIDTH);
+        state.setFont(new Font("Comic Sans", Font.PLAIN, 250));
+        middleRightTile.add(state);
+        state.setVisible(true);
+
         middleRightTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -513,9 +608,11 @@ public class TicTacToeGUI implements ActionListener {
                         playAgain.setVisible(true);
                     }
                     if (board.getTile(2, 1).getState() == Tile.State.X) {
-                        middleRightTile.setBackground(Color.blue);
+                        state.setForeground(Color.blue);
+                        state.setText("X");
                     } else if (board.getTile(2, 1).getState() == Tile.State.O) {
-                        middleRightTile.setBackground(Color.red);
+                        state.setForeground(Color.red);
+                        state.setText("O");
                     }
                 }
             }
@@ -551,6 +648,15 @@ public class TicTacToeGUI implements ActionListener {
         bottomRightTile.setLayout(new BorderLayout());
         bottomRightTile.setBackground(Color.darkGray);
 
+        JLabel state = new JLabel("", JLabel.CENTER);
+        state.setBounds((FRAME_WIDTH / 2) - (LINE_HEIGHT / 2) + (2 * TILE_WIDTH) + (2 * LINE_WIDTH),
+                ((FRAME_HEIGHT - LINE_HEIGHT) / 2) - (LINE_WIDTH / 2) + (2 * TILE_WIDTH) + (2 * LINE_WIDTH),
+                TILE_WIDTH,
+                TILE_WIDTH);
+        state.setFont(new Font("Comic Sans", Font.PLAIN, 250));
+        bottomRightTile.add(state);
+        state.setVisible(true);
+
         bottomRightTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -562,9 +668,11 @@ public class TicTacToeGUI implements ActionListener {
                         playAgain.setVisible(true);
                     }
                     if (board.getTile(2, 2).getState() == Tile.State.X) {
-                        bottomRightTile.setBackground(Color.blue);
+                        state.setForeground(Color.blue);
+                        state.setText("X");
                     } else if (board.getTile(2, 2).getState() == Tile.State.O) {
-                        bottomRightTile.setBackground(Color.red);
+                        state.setForeground(Color.red);
+                        state.setText("O");
                     }
                 }
             }
@@ -590,6 +698,8 @@ public class TicTacToeGUI implements ActionListener {
         bottomRightTile.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: When a side wins, display winner and Play Again button
     private void endGame() {
         if (board.getXTurn()) {
             winText.setText("O wins!");
@@ -599,6 +709,8 @@ public class TicTacToeGUI implements ActionListener {
         playAgain.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Restarts the game if Play Again button is pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playAgain) {

@@ -20,7 +20,7 @@ public class Board {
         }
     }
 
-    // EFFECTS: Makes all tiles on board an EMPTY state
+    /* EFFECTS: Makes all tiles on board an EMPTY state
     // sets game is over to false, tilesMarked = 0, and starts on X's turn
     public void clearBoard() {
         for (int i = 0; i < board.length; i++) {
@@ -31,8 +31,9 @@ public class Board {
         gameIsOver = false;
         XTurn = true;
         tilesMarked = 0;
-    }
+    } */
 
+    // EFFECTS: Returns whether the board has any available moves or not
     public boolean isBoardFull() {
         return tilesMarked == 9;
     }
