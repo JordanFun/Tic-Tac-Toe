@@ -18,12 +18,21 @@ public class TicTacToeGUI implements ActionListener {
     private TTTCPU cpu;
     private JLabel[][] states;
 
-    private static int FRAME_WIDTH = 1600;
-    private static int FRAME_HEIGHT = 900;
+    private Boolean vsCPU;
+
     private JFrame frame;
     private JPanel backgroundColor;
+
+    private JLabel startText;
     private JLabel winText;
+
     private JButton playAgain;
+    private JButton playLocal;
+    private JButton playCPU;
+
+
+    private static int FRAME_WIDTH = 1600;
+    private static int FRAME_HEIGHT = 900;
     private static int LINE_WIDTH = 10;
     private static int LINE_HEIGHT = FRAME_WIDTH / 2;
     private static int TILE_WIDTH = ((LINE_HEIGHT) - (2 * LINE_WIDTH)) / 3;
@@ -57,6 +66,16 @@ public class TicTacToeGUI implements ActionListener {
         backgroundColor.setVisible(true);
         frame.add(backgroundColor);
 
+        startText = new JLabel("Select your mode:", JLabel.CENTER);
+        startText.setBounds((FRAME_WIDTH / 2) - (TILE_WIDTH / 2),
+                (FRAME_HEIGHT / 2) - (3 * TILE_WIDTH / 4),
+                TILE_WIDTH,
+                TILE_WIDTH);
+        startText.setForeground(Color.white);
+        startText.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+        startText.setVisible(true);
+        backgroundColor.add(startText);
+
         winText = new JLabel("", JLabel.CENTER);
         winText.setBounds((FRAME_WIDTH / 2) - (TILE_WIDTH / 2),
                 (FRAME_HEIGHT / 2) - (3 * TILE_WIDTH / 4),
@@ -77,9 +96,28 @@ public class TicTacToeGUI implements ActionListener {
         playAgain.setVisible(false);
         backgroundColor.add(playAgain);
 
+        playCPU = new JButton();
+        playCPU.addActionListener(this);
+        playCPU.setText("Play CPU");
+        playCPU.setBounds((FRAME_WIDTH / 2) - 150,
+                (FRAME_HEIGHT / 2),
+                100,
+                50);
+        playCPU.setVisible(true);
+        backgroundColor.add(playCPU);
+
+        playLocal = new JButton();
+        playLocal.addActionListener(this);
+        playLocal.setText("Play Local");
+        playLocal.setBounds((FRAME_WIDTH / 2) + 50,
+                (FRAME_HEIGHT / 2),
+                100,
+                50);
+        playLocal.setVisible(true);
+        backgroundColor.add(playLocal);
+
         createStates();
         createLines();
-        setTiles();
     }
 
     private void createStates() {
@@ -193,7 +231,8 @@ public class TicTacToeGUI implements ActionListener {
             }
         }
 
-        if (!board.getGameIsOver() && !board.isBoardFull()) {
+
+        if (vsCPU && (!board.getGameIsOver() && !board.isBoardFull())) {
             int[] coords = cpu.markRandom();
             int randomColumn = coords[0];
             int randomRow = coords[1];
@@ -602,6 +641,18 @@ public class TicTacToeGUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playAgain) {
             new TicTacToeGUI();
+        } else if (e.getSource() == playCPU) {
+            vsCPU = true;
+            playCPU.setVisible(false);
+            playLocal.setVisible(false);
+            startText.setVisible(false);
+            setTiles();
+        } else if (e.getSource() == playLocal) {
+            vsCPU = false;
+            playCPU.setVisible(false);
+            playLocal.setVisible(false);
+            startText.setVisible(false);
+            setTiles();
         }
     }
 }
