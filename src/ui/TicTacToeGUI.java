@@ -155,6 +155,24 @@ public class TicTacToeGUI implements ActionListener {
 
     }
 
+    private void markBoard(int column, int row, JLabel state) {
+        if (!board.getGameIsOver()) {
+            if (board.markTile(column,row)) {
+                endGame();
+            } else if (board.isBoardFull()) {
+                winText.setText("Draw!");
+                playAgain.setVisible(true);
+            }
+            if (board.getTile(column, row).getState() == Tile.State.X) {
+                state.setForeground(Color.blue);
+                state.setText("X");
+            } else if (board.getTile(column, row).getState() == Tile.State.O) {
+                state.setForeground(Color.red);
+                state.setText("O");
+            }
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: Creates a new panel that gets added onto the frame, when clicked the label shows either X or O
     // depending on which turn the board was on
@@ -181,21 +199,7 @@ public class TicTacToeGUI implements ActionListener {
         topLeftTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!board.getGameIsOver()) {
-                    if (board.markTile(0,0)) {
-                        endGame();
-                    } else if (board.isBoardFull()) {
-                        winText.setText("Draw!");
-                        playAgain.setVisible(true);
-                    }
-                    if (board.getTile(0, 0).getState() == Tile.State.X) {
-                        state.setForeground(Color.blue);
-                        state.setText("X");
-                    } else if (board.getTile(0, 0).getState() == Tile.State.O) {
-                        state.setForeground(Color.red);
-                        state.setText("O");
-                    }
-                }
+                markBoard(0, 0, state);
             }
 
             @Override
@@ -241,21 +245,7 @@ public class TicTacToeGUI implements ActionListener {
         middleLeftTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!board.getGameIsOver()) {
-                    if (board.markTile(0,1)) {
-                        endGame();
-                    } else if (board.isBoardFull()) {
-                        winText.setText("Draw!");
-                        playAgain.setVisible(true);
-                    }
-                    if (board.getTile(0, 1).getState() == Tile.State.X) {
-                        state.setForeground(Color.blue);
-                        state.setText("X");
-                    } else if (board.getTile(0, 1).getState() == Tile.State.O) {
-                        state.setForeground(Color.red);
-                        state.setText("O");
-                    }
-                }
+                markBoard(0, 1, state);
             }
 
             @Override
@@ -303,21 +293,8 @@ public class TicTacToeGUI implements ActionListener {
         bottomLeftTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!board.getGameIsOver()) {
-                    if (board.markTile(0,2)) {
-                        endGame();
-                    } else if (board.isBoardFull()) {
-                        winText.setText("Draw!");
-                        playAgain.setVisible(true);
-                    }
-                    if (board.getTile(0, 2).getState() == Tile.State.X) {
-                        state.setForeground(Color.blue);
-                        state.setText("X");
-                    } else if (board.getTile(0, 2).getState() == Tile.State.O) {
-                        state.setForeground(Color.red);
-                        state.setText("O");
-                    }
-                }
+                markBoard(0, 2, state);
+
             }
 
             @Override
@@ -362,21 +339,8 @@ public class TicTacToeGUI implements ActionListener {
         topMiddleTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!board.getGameIsOver()) {
-                    if (board.markTile(1,0)) {
-                        endGame();
-                    } else if (board.isBoardFull()) {
-                        winText.setText("Draw!");
-                        playAgain.setVisible(true);
-                    }
-                    if (board.getTile(1, 0).getState() == Tile.State.X) {
-                        state.setForeground(Color.blue);
-                        state.setText("X");
-                    } else if (board.getTile(1, 0).getState() == Tile.State.O) {
-                        state.setForeground(Color.red);
-                        state.setText("O");
-                    }
-                }
+                markBoard(1, 0, state);
+
             }
 
             @Override
@@ -422,21 +386,8 @@ public class TicTacToeGUI implements ActionListener {
         centerTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!board.getGameIsOver()) {
-                    if (board.markTile(1,1)) {
-                        endGame();
-                    } else if (board.isBoardFull()) {
-                        winText.setText("Draw!");
-                        playAgain.setVisible(true);
-                    }
-                    if (board.getTile(1, 1).getState() == Tile.State.X) {
-                        state.setForeground(Color.blue);
-                        state.setText("X");
-                    } else if (board.getTile(1, 1).getState() == Tile.State.O) {
-                        state.setForeground(Color.red);
-                        state.setText("O");
-                    }
-                }
+                markBoard(1, 1, state);
+
             }
 
             @Override
@@ -481,21 +432,8 @@ public class TicTacToeGUI implements ActionListener {
         bottomMiddleTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!board.getGameIsOver()) {
-                    if (board.markTile(1,2)) {
-                        endGame();
-                    } else if (board.isBoardFull()) {
-                        winText.setText("Draw!");
-                        playAgain.setVisible(true);
-                    }
-                    if (board.getTile(1, 2).getState() == Tile.State.X) {
-                        state.setForeground(Color.blue);
-                        state.setText("X");
-                    } else if (board.getTile(1, 2).getState() == Tile.State.O) {
-                        state.setForeground(Color.red);
-                        state.setText("O");
-                    }
-                }
+                markBoard(1, 2, state);
+
             }
 
             @Override
@@ -540,21 +478,8 @@ public class TicTacToeGUI implements ActionListener {
         topRightTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!board.getGameIsOver()) {
-                    if (board.markTile(2,0)) {
-                        endGame();
-                    } else if (board.isBoardFull()) {
-                        winText.setText("Draw!");
-                        playAgain.setVisible(true);
-                    }
-                    if (board.getTile(2, 0).getState() == Tile.State.X) {
-                        state.setForeground(Color.blue);
-                        state.setText("X");
-                    } else if (board.getTile(2, 0).getState() == Tile.State.O) {
-                        state.setForeground(Color.red);
-                        state.setText("O");
-                    }
-                }
+                markBoard(2, 0, state);
+
             }
 
             @Override
@@ -600,21 +525,8 @@ public class TicTacToeGUI implements ActionListener {
         middleRightTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!board.getGameIsOver()) {
-                    if (board.markTile(2,1)) {
-                        endGame();
-                    } else if (board.isBoardFull()) {
-                        winText.setText("Draw!");
-                        playAgain.setVisible(true);
-                    }
-                    if (board.getTile(2, 1).getState() == Tile.State.X) {
-                        state.setForeground(Color.blue);
-                        state.setText("X");
-                    } else if (board.getTile(2, 1).getState() == Tile.State.O) {
-                        state.setForeground(Color.red);
-                        state.setText("O");
-                    }
-                }
+                markBoard(2, 1, state);
+
             }
 
             @Override
@@ -660,21 +572,8 @@ public class TicTacToeGUI implements ActionListener {
         bottomRightTile.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (!board.getGameIsOver()) {
-                    if (board.markTile(2,2)) {
-                        endGame();
-                    } else if (board.isBoardFull()) {
-                        winText.setText("Draw!");
-                        playAgain.setVisible(true);
-                    }
-                    if (board.getTile(2, 2).getState() == Tile.State.X) {
-                        state.setForeground(Color.blue);
-                        state.setText("X");
-                    } else if (board.getTile(2, 2).getState() == Tile.State.O) {
-                        state.setForeground(Color.red);
-                        state.setText("O");
-                    }
-                }
+                markBoard(2, 2, state);
+
             }
 
             @Override
