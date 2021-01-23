@@ -11,7 +11,7 @@ public class TileTest {
 
     @BeforeEach
     void runBefore() {
-        tile1 = new Tile();
+        tile1 = new Tile(0, 0);
     }
 
     @Test

@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Random;
 
 // TicTacToe GUI representing a Tic-Tac-Toe board
 public class TicTacToeGUI implements ActionListener {
@@ -19,6 +20,8 @@ public class TicTacToeGUI implements ActionListener {
     private JLabel[][] states;
 
     private Boolean vsCPU;
+    private Boolean vsRandom;
+    private Boolean cpuFirst;
 
     private JFrame frame;
     private JPanel backgroundColor;
@@ -29,6 +32,8 @@ public class TicTacToeGUI implements ActionListener {
     private JButton playAgain;
     private JButton playLocal;
     private JButton playCPU;
+    private JButton playRandom;
+    private JButton playImpossible;
 
 
     private static int FRAME_WIDTH = 1600;
@@ -40,8 +45,11 @@ public class TicTacToeGUI implements ActionListener {
     // MODIFIES: this
     // EFFECTS: Starts up the GUI JFrame and the elements inside of it
     public TicTacToeGUI() {
+        Random random = new Random();
+        cpuFirst = random.nextBoolean();
+
         board = new Board();
-        cpu = new TTTCPU(board, false);
+        cpu = new TTTCPU(board, cpuFirst);
         states = new JLabel[3][3];
 
         frame = new JFrame();
@@ -105,6 +113,26 @@ public class TicTacToeGUI implements ActionListener {
                 50);
         playCPU.setVisible(true);
         backgroundColor.add(playCPU);
+
+        playRandom = new JButton();
+        playRandom.addActionListener(this);
+        playRandom.setText("Easy");
+        playRandom.setBounds((FRAME_WIDTH / 2) - 150,
+                (FRAME_HEIGHT / 2),
+                100,
+                50);
+        playRandom.setVisible(false);
+        backgroundColor.add(playRandom);
+
+        playImpossible = new JButton();
+        playImpossible.addActionListener(this);
+        playImpossible.setText("Hard");
+        playImpossible.setBounds((FRAME_WIDTH / 2) + 50,
+                (FRAME_HEIGHT / 2),
+                100,
+                50);
+        playImpossible.setVisible(false);
+        backgroundColor.add(playImpossible);
 
         playLocal = new JButton();
         playLocal.addActionListener(this);
@@ -230,12 +258,19 @@ public class TicTacToeGUI implements ActionListener {
                 states[column][row].setText("O");
             }
         }
+        CPUmark();
+    }
 
-
+    private void CPUmark() {
         if (vsCPU && (!board.getGameIsOver() && !board.isBoardFull())) {
-            int[] coords = cpu.markRandom();
-            int randomColumn = coords[0];
-            int randomRow = coords[1];
+            int[] coords;
+            if (vsRandom) {
+                coords = cpu.markRandom();
+            } else {
+                coords = cpu.markSmart();
+            }
+            int column = coords[0];
+            int row = coords[1];
             //System.out.println("(" + randomColumn + ", " + randomRow + ")");
             if (board.getGameIsOver()) {
                 endGame();
@@ -243,12 +278,12 @@ public class TicTacToeGUI implements ActionListener {
                 winText.setText("Draw!");
                 playAgain.setVisible(true);
             }
-            if (board.getTile(randomColumn, randomRow).getState() == Tile.State.X) {
-                states[randomColumn][randomRow].setForeground(Color.blue);
-                states[randomColumn][randomRow].setText("X");
-            } else if (board.getTile(randomColumn, randomRow).getState() == Tile.State.O) {
-                states[randomColumn][randomRow].setForeground(Color.red);
-                states[randomColumn][randomRow].setText("O");
+            if (board.getTile(column, row).getState() == Tile.State.X) {
+                states[column][row].setForeground(Color.blue);
+                states[column][row].setText("X");
+            } else if (board.getTile(column, row).getState() == Tile.State.O) {
+                states[column][row].setForeground(Color.red);
+                states[column][row].setText("O");
             }
         }
     }
@@ -640,19 +675,39 @@ public class TicTacToeGUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playAgain) {
+            frame.dispose();
             new TicTacToeGUI();
         } else if (e.getSource() == playCPU) {
             vsCPU = true;
             playCPU.setVisible(false);
             playLocal.setVisible(false);
-            startText.setVisible(false);
-            setTiles();
+            startText.setText("Choose your difficulty");
+            playImpossible.setVisible(true);
+            playRandom.setVisible(true);
         } else if (e.getSource() == playLocal) {
             vsCPU = false;
             playCPU.setVisible(false);
             playLocal.setVisible(false);
             startText.setVisible(false);
             setTiles();
+        } else if (e.getSource() == playImpossible) {
+            vsRandom = false;
+            startText.setVisible(false);
+            playImpossible.setVisible(false);
+            playRandom.setVisible(false);
+            setTiles();
+            if (cpuFirst) {
+                CPUmark();
+            }
+        } else if (e.getSource() == playRandom) {
+            vsRandom = true;
+            startText.setVisible(false);
+            playImpossible.setVisible(false);
+            playRandom.setVisible(false);
+            setTiles();
+            if (cpuFirst) {
+                CPUmark();
+            }
         }
     }
 }
