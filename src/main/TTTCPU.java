@@ -33,6 +33,9 @@ public class TTTCPU {
         System.out.println(mark);
     }
 
+    // REQUIRES: game is not over
+    // MODIFIES: this
+    // EFFECTS: Marks a random tile on the board and returns the position of that marked tile
     public int[] markRandom() {
         Random rand = new Random();
         int upperBound = 3;
@@ -51,6 +54,9 @@ public class TTTCPU {
         }
     }
 
+    // REQUIRES: game is not over
+    // MODIFIES: this
+    // EFFECTS: Marks a tile using an algorithm and returns the tile position
     public int[] markSmart() {
         int[] tile = findBestMove();
 
@@ -58,6 +64,7 @@ public class TTTCPU {
         return tile;
     }
 
+    // EFFECTS: Finds the best move out of the 9 tiles on the board and returns its position
     private int[] findBestMove() {
         int[] resultTile = new int[2];
         int currTileScore = 0;
@@ -66,7 +73,7 @@ public class TTTCPU {
             for (int j = 0; j < 3; j++) {
                 newScore = getTileScore(i, j);
                 System.out.println(newScore);
-                System.out.println("----------------");
+                System.out.println("--------End of Tile--------");
                 if (newScore > currTileScore) {
                     currTileScore = getTileScore(i, j);
 
@@ -75,10 +82,11 @@ public class TTTCPU {
                 }
             }
         }
-        System.out.println("------------------------------------");
+        System.out.println("-----------------End of Turn-----------------");
         return resultTile;
     }
 
+    // EFFECTS: return's the tile's value if the CPU decides to mark here
     private int getTileScore(int column, int row) {
         if (board.getTile(column, row).getState() != Tile.State.EMPTY) {
             return 0;
@@ -121,6 +129,7 @@ public class TTTCPU {
         return INITIAL_SIDE_SCORE + additionalScore;
     }
 
+    // EFFECTS: Gets the horizontal score for marking a tile
     private int getHorizontalScore(int column, int row) {
         Tile[] otherTiles = new Tile[2];
 
@@ -144,6 +153,7 @@ public class TTTCPU {
         return score;
     }
 
+    // EFFECTS: Gets the vertical score for marking a tile
     private int getVerticalScore(int column, int row) {
         Tile[] otherTiles = new Tile[2];
 
@@ -167,6 +177,7 @@ public class TTTCPU {
         return score;
     }
 
+    // EFFECTS: Gets the downward diagonal score for marking a tile
     private int getDownwardsDiagonalScore(int column, int row) {
         Tile[] otherTiles = new Tile[2];
 
@@ -190,6 +201,7 @@ public class TTTCPU {
         return score;
     }
 
+    // EFFECTS: Gets the upward diagonal score for marking a tile
     private int getUpwardsDiagonalScore(int column, int row) {
         Tile[] otherTiles = new Tile[2];
 
@@ -215,6 +227,9 @@ public class TTTCPU {
         return score;
     }
 
+    // EFFECTS: calculates the score based on constants
+    // Takes two tiles that are in the same row/diagonal/column as the tile of interest
+    // Returns a score based on how valuable it would be to mark this tile
     private int calculateScore(Tile tile1, Tile tile2) {
         if (tile1.getState() == Tile.State.EMPTY && tile2.getState() == Tile.State.EMPTY) {
             // both tiles are empty

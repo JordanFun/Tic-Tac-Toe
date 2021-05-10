@@ -148,6 +148,7 @@ public class TicTacToeGUI implements ActionListener {
         createLines();
     }
 
+    // EFFECTS: creates JLabels for each of the tiles that can be marked X, O, or EMPTY
     private void createStates() {
         for (int i = 0; i < states.length; i++) {
             for (int j = 0; j < states.length; j++) {
@@ -242,6 +243,7 @@ public class TicTacToeGUI implements ActionListener {
 
     }
 
+    // EFFECTS: marks the board at (column, row) then lets the CPU move
     private void markBoard(int column, int row) {
         if (!board.getGameIsOver()) {
             if (board.markTile(column,row)) {
@@ -261,6 +263,8 @@ public class TicTacToeGUI implements ActionListener {
         CPUmark();
     }
 
+    // EFFECTS: if player chooses to VS CPU, marks tile based on CPU difficulty
+    // else do nothing
     private void CPUmark() {
         if (vsCPU && (!board.getGameIsOver() && !board.isBoardFull())) {
             int[] coords;

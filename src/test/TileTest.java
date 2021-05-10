@@ -24,4 +24,10 @@ public class TileTest {
         tile1.setState(State.X);
         assertEquals(Tile.State.X, tile1.getState());
     }
+
+    @Test
+    void testGetRowColumn() {
+        assertEquals(0, tile1.getRow());
+        assertEquals(0, tile1.getColumn());
+    }
 }
